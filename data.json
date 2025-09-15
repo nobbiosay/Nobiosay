@@ -1,0 +1,18 @@
+{
+  "sites": [
+    {
+      "name": "Cidanau",
+      "ph": 7.1,
+      "turbidity": 2.4,
+      "temp_c": 27.3,
+      "last_update": "2025-09-10 14:30"
+    },
+    {
+      "name": "Kerenceng",
+      "ph": 6.9,
+      "turbidity": 3.1,
+      "temp_c": 28.1,
+      "last_update": "2025-09-10 14:35"
+    }
+  ]
+}

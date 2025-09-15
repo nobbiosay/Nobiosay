@@ -1,0 +1,35 @@
+<!doctype html><html lang="id"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>README — KWS Minimal (Vercel)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head><body class="bg-white text-slate-900">
+<main class="mx-auto max-w-3xl p-6">
+<h1 class="text-3xl font-semibold">KWS — Versi Minimal untuk Vercel</h1>
+<p class="mt-4 text-slate-600">Vercel tidak mendukung PHP secara native. Paket ini mengubah proyek menjadi <em>static site</em> yang siap dideploy.</p>
+
+<h2 class="text-2xl font-semibold mt-8">Cara Deploy</h2>
+<ol class="list-decimal ml-6 mt-3 space-y-2 text-slate-700">
+  <li>Ekstrak zip ini, lalu push ke repository Git (GitHub/GitLab/Bitbucket).</li>
+  <li>Buat proyek di Vercel &gt; <span class="font-mono">Import Project</span> &gt; pilih repo.</li>
+  <li>Framework preset: <span class="font-mono">Other</span>. Output directory: <span class="font-mono">/</span>.</li>
+  <li>Deploy. Selesai ✅</li>
+</ol>
+
+<h2 class="text-2xl font-semibold mt-8">Menggunakan Data Nyata</h2>
+<p class="mt-2 text-slate-700">Ubah <span class="font-mono">data.json</span> agar mengarah ke API Anda (misal dari layanan lain), atau ganti fetch pada <span class="font-mono">index.html</span> untuk memanggil endpoint.</p>
+
+<h2 class="text-2xl font-semibold mt-8">Opsi Backend</h2>
+<ul class="list-disc ml-6 mt-3 space-y-1 text-slate-700">
+  <li>Porting PHP ke Node/Edge Functions di Vercel (disarankan).</li>
+  <li>Menjalankan backend PHP di layanan lain (Railway/Render/Hostinger) dan mengarahkan front-end ini ke API tersebut.</li>
+</ul>
+
+<h2 class="text-2xl font-semibold mt-8">Struktur</h2>
+<pre class="bg-slate-50 p-4 rounded-xl text-sm">/
+├─ index.html
+├─ data.json
+└─ assets/
+   ├─ custom.css
+   └─ logo.png (opsional)</pre>
+</main>
+</body></html>

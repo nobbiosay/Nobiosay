@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KWS — Monitoring Air</title>
+    <meta name="description" content="Dashboard monitoring kualitas air — versi statis siap deploy di Vercel.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/assets/custom.css">
+  </head>
+  <body class="bg-white text-slate-900" style="font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif">
+    <header class="sticky top-0 z-30 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b">
+      <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-3">
+          <img src="/assets/logo.png" alt="Logo" class="h-8 w-8 rounded-lg hidden sm:block" onerror="this.style.display='none'">
+          <span class="font-semibold">KWS</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a href="#tentang" class="hover:opacity-70">Tentang</a>
+          <a href="#data" class="hover:opacity-70">Data</a>
+          <a href="#kontak" class="hover:opacity-70">Kontak</a>
+        </nav>
+        <a href="#data" class="md:hidden inline-flex items-center gap-2 px-3 py-2 rounded-xl border hover:bg-slate-50">Lihat Data</a>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="relative">
+        <div class="mx-auto max-w-6xl px-4 py-16 md:py-24">
+          <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h1 class="text-3xl md:text-5xl font-semibold leading-tight">Monitoring Kualitas Air<br><span class="text-slate-500 font-normal">Minimalis, cepat, siap Vercel.</span></h1>
+              <p class="mt-5 text-slate-600">Versi statis dari aplikasi KWS agar bisa di-host di Vercel tanpa backend PHP. Tampil modern, fokus pada ringkasan dan visual singkat.</p>
+              <div class="mt-8 flex gap-3">
+                <a href="#data" class="px-4 py-2 rounded-xl bg-slate-900 text-white hover:opacity-90">Lihat Ringkasan</a>
+                <a href="README.html" class="px-4 py-2 rounded-xl border hover:bg-slate-50">Dokumentasi</a>
+              </div>
+            </div>
+            <div class="md:pl-10">
+              <div class="card p-6">
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-slate-500">Status</span>
+                  <span id="lastSync" class="text-xs px-2 py-1 rounded-lg bg-slate-100">Sinkronisasi…</span>
+                </div>
+                <div class="mt-4">
+                  <div class="grid grid-cols-3 gap-3">
+                    <div class="p-4 rounded-2xl border">
+                      <div class="text-xs text-slate-500">Lokasi</div>
+                      <div id="cardSite" class="text-xl font-semibold">—</div>
+                    </div>
+                    <div class="p-4 rounded-2xl border">
+                      <div class="text-xs text-slate-500">pH</div>
+                      <div id="cardPh" class="text-xl font-semibold">—</div>
+                    </div>
+                    <div class="p-4 rounded-2xl border">
+                      <div class="text-xs text-slate-500">Suhu (°C)</div>
+                      <div id="cardTemp" class="text-xl font-semibold">—</div>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-4 text-sm text-slate-500">Data di bawah adalah contoh (mock) agar versi Vercel tetap berfungsi tanpa PHP.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data -->
+      <section id="data" class="border-t">
+        <div class="mx-auto max-w-6xl px-4 py-16">
+          <div class="flex items-center justify-between">
+            <h2 class="text-2xl md:text-3xl font-semibold">Ringkasan Data</h2>
+            <div class="flex gap-2">
+              <select id="siteSelect" class="px-3 py-2 rounded-xl border text-sm">
+                <option value="Cidanau">Cidanau</option>
+                <option value="Kerenceng">Kerenceng</option>
+              </select>
+              <button id="refreshBtn" class="px-3 py-2 rounded-xl border text-sm hover:bg-slate-50">Muat Ulang</button>
+            </div>
+          </div>
+
+          <div class="mt-6 grid md:grid-cols-3 gap-4">
+            <div class="card p-5">
+              <div class="text-sm text-slate-500">pH Air</div>
+              <div id="phVal" class="text-3xl font-semibold mt-1">—</div>
+            </div>
+            <div class="card p-5">
+              <div class="text-sm text-slate-500">Kekeruhan (NTU)</div>
+              <div id="turbVal" class="text-3xl font-semibold mt-1">—</div>
+            </div>
+            <div class="card p-5">
+              <div class="text-sm text-slate-500">Suhu (°C)</div>
+              <div id="tempVal" class="text-3xl font-semibold mt-1">—</div>
+            </div>
+          </div>
+
+          <div class="mt-8 overflow-x-auto">
+            <table class="min-w-full text-sm">
+              <thead>
+                <tr class="text-left text-slate-500">
+                  <th class="py-2">Lokasi</th>
+                  <th class="py-2">pH</th>
+                  <th class="py-2">Kekeruhan</th>
+                  <th class="py-2">Suhu (°C)</th>
+                  <th class="py-2">Update Terakhir</th>
+                </tr>
+              </thead>
+              <tbody id="dataRows"></tbody>
+            </table>
+          </div>
+
+          <p class="mt-4 text-xs text-slate-500">Catatan: Fitur login, input, dan penyimpanan (PHP/MySQL) dihilangkan pada versi Vercel. Lihat README untuk opsi backend.</p>
+        </div>
+      </section>
+
+      <!-- Tentang -->
+      <section id="tentang" class="border-t">
+        <div class="mx-auto max-w-6xl px-4 py-16">
+          <h2 class="text-2xl md:text-3xl font-semibold">Tentang Proyek</h2>
+          <p class="mt-4 text-slate-600">Repositori asli berbasis PHP. Vercel tidak menjalankan PHP secara native, sehingga dibuat ulang sebagai <em>static front‑end</em> yang ringan dan modern. Anda bisa mengganti sumber data ke API publik/Edge Function kapan saja.</p>
+        </div>
+      </section>
+
+      <!-- Kontak -->
+      <section id="kontak" class="border-t">
+        <div class="mx-auto max-w-6xl px-4 py-16">
+          <h2 class="text-2xl md:text-3xl font-semibold">Kontak</h2>
+          <p class="mt-4 text-slate-600">Butuh integrasi ke backend? Lihat README untuk opsi, atau hubungi pengelola proyek.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t">
+      <div class="mx-auto max-w-6xl px-4 py-8 text-sm text-slate-500">
+        © <span id="year"></span> KWS. Dibuat minimalis untuk Vercel.
+      </div>
+    </footer>
+
+    <script>
+      const state = { sites: [] };
+
+      async function loadData() {
+        const res = await fetch('/data.json', { cache: 'no-store' });
+        const json = await res.json();
+        state.sites = json.sites || [];
+        updateUI();
+      }
+
+      function updateUI() {
+        const rows = document.getElementById('dataRows');
+        rows.innerHTML = '';
+        state.sites.forEach(s => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = \`
+            <td class="py-2">\${s.name}</td>
+            <td class="py-2">\${s.ph}</td>
+            <td class="py-2">\${s.turbidity}</td>
+            <td class="py-2">\${s.temp_c}</td>
+            <td class="py-2 text-slate-500">\${s.last_update}</td>
+          \`;
+          rows.appendChild(tr);
+        });
+
+        // Set cards to first selected site
+        const sel = document.getElementById('siteSelect').value;
+        const chosen = state.sites.find(x => x.name === sel) || state.sites[0];
+        if (chosen) {
+          document.getElementById('cardSite').textContent = chosen.name;
+          document.getElementById('cardPh').textContent = chosen.ph;
+          document.getElementById('cardTemp').textContent = chosen.temp_c;
+          document.getElementById('phVal').textContent = chosen.ph;
+          document.getElementById('turbVal').textContent = chosen.turbidity;
+          document.getElementById('tempVal').textContent = chosen.temp_c;
+          document.getElementById('lastSync').textContent = 'Data contoh dimuat';
+        }
+      }
+
+      document.getElementById('siteSelect').addEventListener('change', updateUI);
+      document.getElementById('refreshBtn').addEventListener('click', loadData);
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      loadData();
+    </script>
+  </body>
+</html>
